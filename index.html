@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+        #today {
+      display: none;
+    }
+
+    #today.show {
+      display: block;
+    }
+     #onlyTodayContainer {
+      display: none;
+    }
+.only {
+      cursor: pointer;
+      color: blue;
+     
+    }
+
+    .active{
+      display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+       
+    }
+
+    .task-container .card {
+      width: 420px;
+      padding: 5px;
+      list-style: none;
+      margin-top: 10px;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .task-container .card span {
+      /* Span elementinin stilini burada belirleyebilirsiniz */
+margin-top: 50px;
+
+    }
+    .task-container .card h3 {
+      color: orange;
+    }
+
+    .task-container #today {
+height: 700px;
+      width: 520px;
+display: flex;
+margin-left: 40px;
+      border-radius: 10px;
+   gap: 20px;
+
+    }
+    
+
+    .task-container #tomorrow {
+      /* Yarın divinin stillerini burada belirleyebilirsiniz */
+      gap: 20px;
+    }
+
+    .task-container #later {
+      gap: 20px;
+        /* Daha sonra divinin stillerini burada belirleyebilirsiniz */
+    }
+
+   .card {
+      width: 400px;
+      padding: 1px;
+      list-style: none;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      background-color:rgb(193, 187, 187);
+      border-radius: 10px;
+      text-align: start;
+      flex-wrap: wrap;
+    }
+
+    .task-container .card h3 {
+      color: orange;
+    }
+    .task-container #tomorrow {
+margin: 20px;
+      /* Yarın divinin stillerini burada belirleyebilirsiniz */
+    }
+</style>
+<body>
+
+    <ul id="taskList"></ul>
+  <div class="task-container"  style=
+  "background-color:rgb(99, 100, 104);width: 80%;padding: 20px;
+   margin: auto;">
+   <div style="display: flex; justify-content: center; gap: 20px;"> 
+    <h2   style="color:orange;">Hompage..</h2>
+    <h2   style="text-align: center;  cursor: pointer;  color: rgb(89, 0, 109);"
+    onclick="createTodayCards()">Only today  Next Page..</h2> 
+    <h2 class="only" style="color: blue; 
+     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" onclick="toggleOnlyTodayContainer()"
+    >Only today..</h2>
+
+</div>
+<h3 style="text-align: center;">HI  YOU HAVE 25 UNDONE TASKS</h3>
+<h2 style="text-align: center;font-size: 33px; color: rgb(130, 187, 16);">All Todos</h2>
+ 
+  <h3 style="text-align: center; font-size: 33px;
+  color: darkgreen;font-family: 'Gill Sans',
+   'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Today</h3>
+    <div id="today"  style="display: flex;
+     flex-wrap: wrap;flex-direction: column;margin-left: 60px;
+     ">
+    
+    </div>
+    <h3  style="text-align: center; font-size: 33px;
+    color: darkgreen;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Tomorow</h3>
+    <div id="tomorrow" style="margin: auto;    margin-left: 10px;
+    flex-wrap: wrap; display: flex; justify-content: center;">
+   
+    </div>
+    <h3  style="text-align: center; font-size: 33px;
+    color: darkgreen;font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Later  10</h3>
+    <div id="later" style=" display: flex;
+     flex-wrap: wrap; margin-top: 40px;
+      margin: auto; margin-left: 60px;  ">
+     
+    </div>
+  </div>
+  <!-- 66 -->
+
+
+ <div id="onlyTodayContainer" 
+style="
+  margin: auto ;flex-wrap: wrap; justify-content: center;
+  align-items: center;gap: 10px; 
+   margin-top: 100px;background-color:rgb(49, 154, 239);
+   height: 800px;padding: 20px;
+    border-radius: 10px;
+    margin-top: 50px;
+    text-align: center;
+  ">
+   <h2 style="color: rgb(14, 15, 14);margin-top: 50px;
+     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center; 
+     font-size: 33px;">Only Today </h2>
+  </div> 
+ 
+
+  <div id="onlyTodayContainer">
+    <div id="todayContainer"style="display: flex;
+     flex-wrap:wrap;" ></div>
+  </div>
+    </div>
+</div>
+    </div>
+    <script>
+// Assuming the tasks array is stored in the variable 'arr'
+const  tasks= [
+ 
+    {
+        "userId": 1,
+        "id": 1,
+        "title": "delectus aut autem",
+        "completed": false,
+        left: 12
+    },
+    {
+        "userId": 1,
+        "id": 2,
+        "title": "quis ut nam facilis et officia qui",
+        "completed": false,
+        left: 0
+    },
+    {
+        "userId": 1,
+        "id": 3,
+        "title": "fugiat veniam minus",
+        "completed": false,
+        left: 1
+    },
+    {
+        "userId": 1,
+        "id": 4,
+        "title": "et porro tempora",
+        "completed": true,
+        left: 41
+    },
+    {
+        "userId": 1,
+        "id": 5,
+        "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
+        "completed": false,
+        left: 22
+    },
+    {
+        "userId": 1,
+        "id": 6,
+        "title": "qui ullam ratione quibusdam voluptatem quia omnis",
+        "completed": false,
+        left: 21
+    },
+    {
+        "userId": 1,
+        "id": 7,
+        "title": "illo expedita consequatur quia in",
+        "completed": false,
+        left: 4
+    },
+    {
+        "userId": 1,
+        "id": 13,
+        "title": "et doloremque nulla",
+        "completed": false,
+        left: 3
+    },
+    {
+        "userId": 1,
+        "id": 14,
+        "title": "repellendus sunt dolores architecto voluptatum",
+        "completed": true,
+        left: 2
+    },
+    {
+        "userId": 1,
+        "id": 15,
+        "title": "ab voluptatum amet voluptas",
+        "completed": true,
+        left: 8
+    },
+    {
+        "userId": 1,
+        "id": 16,
+        "title": "accusamus eos facilis sint et aut voluptatem",
+        "completed": true,
+        left: 6
+    },
+    {
+        "userId": 1,
+        "id": 17,
+        "title": "quo laboriosam deleniti aut qui",
+        "completed": true,
+        left: 4
+    },
+    {
+        "userId": 1,
+        "id": 18,
+        "title": "dolorum est consequatur ea mollitia in culpa",
+        "completed": false,
+        left: 2
+    },
+    {
+        "userId": 1,
+        "id": 19,
+        "title": "molestiae ipsa aut voluptatibus pariatur dolor nihil",
+        "completed": true,
+        left: 0
+    },
+    {
+        "userId": 1,
+        "id": 20,
+        "title": "ullam nobis libero sapiente ad optio sint",
+        "completed": true,
+        left: 0
+    },
+    {
+        "userId": 2,
+        "id": 21,
+        "title": "suscipit repellat esse quibusdam voluptatem incidunt",
+        "completed": false,
+        left: 0
+    },
+    {
+        "userId": 2,
+        "id": 22,
+        "title": "distinctio vitae autem nihil ut molestias quo",
+        "completed": true,
+        left: 1
+    },
+    {
+        "userId": 2,
+        "id": 23,
+        "title": "et itaque necessitatibus maxime molestiae qui quas velit",
+        "completed": false,
+        left: 1
+    },
+    {
+        "userId": 2,
+        "id": 24,
+        "title": "adipisci non ad dicta qui amet quaerat doloribus ea",
+        "completed": false,
+        left: 23
+    },
+    {
+        "userId": 2,
+        "id": 25,
+        "title": "voluptas quo tenetur perspiciatis explicabo natus",
+        "completed": true,
+        left: 1
+    },
+    {
+        "userId": 2,
+        "id": 26,
+        "title": "aliquam aut quasi",
+        "completed": true,
+        left: 26
+    },
+    {
+        "userId": 2,
+        "id": 27,
+        "title": "veritatis pariatur delectus",
+        "completed": true,
+        left: 0
+    },
+    {
+        "userId": 2,
+        "id": 28,
+        "title": "nesciunt totam sit blanditiis sit",
+        "completed": false,
+        left: 12
+    },
+    {
+        "userId": 2,
+        "id": 29,
+        "title": "laborum aut in quam",
+        "completed": false,
+        left: 6
+    },
+    {
+        "userId": 2,
+        "id": 30,
+        "title": "nemo perspiciatis repellat ut dolor libero commodi blanditiis omnis",
+        "completed": true,
+        left: 12
+    },
+    {
+        "userId": 2,
+        "id": 31,
+        "title": "repudiandae totam in est sint facere fuga",
+        "completed": false,
+        left: 52
+    },
+    {
+        "userId": 2,
+        "id": 32,
+        "title": "earum doloribus ea doloremque quis",
+        "completed": false,
+        left: 21
+    },
+    {
+        "userId": 2,
+        "id": 33,
+        "title": "sint sit aut vero",
+        "completed": false,
+        left: 41
+    },
+    {
+        "userId": 2,
+        "id": 34,
+        "title": "porro aut necessitatibus eaque distinctio",
+        "completed": false,
+        left: 31
+    },
+    {
+        "userId": 2,
+        "id": 35,
+        "title": "repellendus veritatis molestias dicta incidunt",
+        "completed": true,
+        left: 1
+    }
+]
+    function createCard(task, divId) {
+      var div = document.getElementById(divId);
+
+      var li = document.createElement("li");
+      li.classList.add("card");
+
+
+      var h5 = document.createElement("h5");
+    h5.textContent = "Buy S Plaid!";
+    li.appendChild(h5);
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = task.completed;
+      li.appendChild(checkbox);
+
+      var span = document.createElement("span");
+      span.textContent = task.title;
+      li.appendChild(span);
+
+      var p = document.createElement("p");
+      p.textContent = "Lorem ipsum dolor, sit amet consect assumenda!";
+      li.appendChild(p);
+
+      var h3 = document.createElement("h3");
+
+      if (divId === "today") {
+        h3.textContent = "Today";
+      } else if (divId === "tomorrow") {
+        h3.textContent = "Tomorrow";
+      } else if (divId === "later ") {
+        h3.textContent = "Later  ";
+      }
+
+      li.appendChild(h3);
+   
+      div.appendChild(li);
+      
+    }
+
+    function showOnlyToday() {
+      var todayDiv = document.getElementById("today");
+      var tomorrowDiv = document.getElementById("tomorrow");
+      var laterDiv = document.getElementById("later");
+
+  
+      for (var i = 0; i < tasks.length; i++) {
+        var task = tasks[i];
+
+        if (task.left === 0) {
+          createCard(task, "today");
+        } else if (task.left >= 1 && task.left <= 10) {
+          createCard(task, "tomorrow");
+        } else if (task.left > 10) {
+          createCard(task, "later");
+        }
+      }
+    }
+    // Sayfa yüklendiğinde kartları oluştur ve göster
+    window.onload = function() {
+      showOnlyToday();
+      
+      var onlyTodayLink = document.querySelector(".only");
+      onlyTodayLink.addEventListener("click", showOnlyTodayTasks);
+    };
+// dene7
+function createTodayCards() {
+    // index2.html sayfasına yönlendirme işlemi
+    window.location.href = "index2.html";
+  }
+  var todayTasksCreated = false; // Yeni bir değişken ekledik
+
+function createTodayTasks() {
+  var todayContainer = document.getElementById("todayContainer");
+  var todayTasks = document.getElementById("today").querySelectorAll(".card");
+
+  for (var i = 0; i < todayTasks.length; i++) {
+    var task = todayTasks[i];
+
+    var li = document.createElement("li");
+    li.classList.add("card");
+
+    var checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = task.completed;
+    li.appendChild(checkbox);
+
+    var span = document.createElement("span");
+    span.textContent = task.title;
+    li.appendChild(span);
+
+    var p = document.createElement("p");
+    p.textContent = "Lorem ipsum dolor, sit amet consect assumenda!";
+    li.appendChild(p);
+
+    todayContainer.appendChild(li);
+  }
+}
+
+function showOnlyTodayTasks() {
+  var onlyTodayContainer = document.getElementById("onlyTodayContainer");
+
+  if (!todayTasksCreated) { // Yeni bir kontrol ekledik
+    var innerDiv = document.createElement("div");
+    innerDiv.classList.add('active')
+    onlyTodayContainer.appendChild(innerDiv);
+
+    var todayTasks = document.getElementById("today").querySelectorAll(".card");
+
+    for (var i = 0; i < todayTasks.length; i++) {
+      innerDiv.appendChild(todayTasks[i].cloneNode(true));
+    }
+
+    todayTasksCreated = true;
+  }
+
+  onlyTodayContainer.style.display = "block";
+
+}
+   </script>
+     
+</body>
+</html>
