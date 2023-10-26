@@ -8,7 +8,7 @@
       list-style-type: none;
       display: flex;
   flex-direction: row;
-height: 600px;
+height: 700px;
 padding: 20px;
 border-radius: 10px;
 background-color: rgb(124, 125, 128);
@@ -289,6 +289,10 @@ width: 900px;
           checkbox.type = "checkbox";
           li.appendChild(checkbox);
 
+
+          var h5 = document.createElement("h5");
+    h5.textContent = "Buy S Plaid!";
+    li.appendChild(h5);
           var span = document.createElement("span");
           span.textContent = task.title;
           li.appendChild(span);
